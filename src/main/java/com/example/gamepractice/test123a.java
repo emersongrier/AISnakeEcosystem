@@ -35,6 +35,8 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
 
     Text text;
 
+    Board b1;
+
 
     @Override
     public void start(Stage primaryStage)
@@ -47,9 +49,13 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         text.setX(SceneWidth/2.0);
         text.setY(SceneHeight/2.0);
 
-        s1 = new Snake(BoardWidth,BoardHeight,SceneWidth,SceneHeight);
-        f1 = new Food(s1);
+        b1 = new Board(BoardWidth,BoardHeight,SceneWidth,SceneHeight);
+
+        s1 = new Snake(b1);
+        f1 = new Food(b1,b1.segmentSizeX,b1.segmentSizeY);
+
         f1.createFood(s1);
+
         root.getChildren().add(s1.parts.get(0));
         root.getChildren().add(f1);
 
@@ -121,8 +127,8 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         root.getChildren().remove(text);
         s1.length = 1;
         s1.isDead = false;
-        s1.parts.get(0).setX(6*s1.segmentSizeX);
-        s1.parts.get(0).setY(8*s1.segmentSizeY);
+        s1.parts.get(0).setX(6*b1.segmentSizeX);
+        s1.parts.get(0).setY(8*b1.segmentSizeY);
         s1.heading=1;
         f1.createFood(s1);
         animation.play();

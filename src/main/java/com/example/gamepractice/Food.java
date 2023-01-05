@@ -7,18 +7,21 @@ public class Food extends Rectangle
     double xpos;
     double ypos;
 
-    public Food(Snake s1)
+    Board b1;
+
+    public Food(Board b1,double segmentSizeX, double segmentSizeY)
     {
-        super(s1.segmentSizeX,s1.segmentSizeY);
+        super(segmentSizeX,segmentSizeY);
+        this.b1 = b1;
         this.setFill(Color.RED);
         this.setStroke(Color.WHITE);
     }
 
 
-    public void createFood(Snake s1)//may need to change what items are attributes of what.
+    public void createFood(Snake s1)//maybe place in a Game class that contains 1 or more snakes, for use of 2p or ecosystem
     {
-        this.xpos = (Math.floor(Math.random()*s1.boardWidth)*s1.segmentSizeX);
-        this.ypos = (Math.floor(Math.random()*s1.boardHeight)*s1.segmentSizeY);
+        this.xpos = (Math.floor(Math.random()*b1.boardWidth)*b1.segmentSizeX);//some board specific data
+        this.ypos = (Math.floor(Math.random()*b1.boardHeight)*b1.segmentSizeY);
 
         for(int i = 0; i<s1.length;i++)
         {

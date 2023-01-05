@@ -7,35 +7,20 @@ import java.util.ArrayList;
 
 public class Snake
 {
-    int heading = 1;
-    int length = 1;
+    int heading = 1;//snake
+    int length = 1;//snake
 
-    ArrayList<Rectangle> parts;
+    ArrayList<Rectangle> parts;//snake specific
 
-    double segmentSizeX;
-    double segmentSizeY;
+    Boolean isDead;//snake specific
 
-    int boardWidth;
-    int boardHeight;
+    Board b1;
 
-    double sceneWidth;
-    double sceneHeight;
-
-    Boolean isDead;
-
-    public Snake(int boardWidth, int boardHeight, double sceneWidth, double sceneHeight)
+    public Snake(Board b1)
     {
-        this.sceneWidth = sceneWidth;
-        this.sceneHeight = sceneHeight;
-
-        this.boardWidth = boardWidth;
-        this.boardHeight = boardHeight;
-
-        this.segmentSizeX = sceneWidth/boardWidth;
-        this.segmentSizeY = sceneHeight/boardHeight;
-
+        this.b1 = b1;
         parts = new ArrayList<Rectangle>();
-        parts.add(new Rectangle(6*segmentSizeX,8*segmentSizeY,segmentSizeX,segmentSizeY));
+        parts.add(new Rectangle(6*b1.segmentSizeX,8*b1.segmentSizeY,b1.segmentSizeX,b1.segmentSizeY));
         parts.get(0).setStroke(Color.WHITE);
     }
 
@@ -47,13 +32,13 @@ public class Snake
         switch (heading)
         {
             case 0://updates head block based on heading
-            {parts.get(0).setY(parts.get(0).getY()-segmentSizeY);break;}
+            {parts.get(0).setY(parts.get(0).getY()-b1.segmentSizeY);break;}
             case 1:
-            {parts.get(0).setX(parts.get(0).getX()+segmentSizeX);break;}
+            {parts.get(0).setX(parts.get(0).getX()+b1.segmentSizeX);break;}
             case 2:
-            {parts.get(0).setY(parts.get(0).getY()+segmentSizeY);break;}
+            {parts.get(0).setY(parts.get(0).getY()+b1.segmentSizeY);break;}
             case 3:
-            {parts.get(0).setX(parts.get(0).getX()-segmentSizeX);break;}
+            {parts.get(0).setX(parts.get(0).getX()-b1.segmentSizeX);break;}
         }
         for(int i = 1; i<length;i++)//updates subsequent segments to move forward
         {
@@ -71,7 +56,7 @@ public class Snake
         if(f1.ypos==this.parts.get(0).getY()&&f1.xpos==this.parts.get(0).getX())
         {
             f1.createFood(this);
-            this.parts.add(new Rectangle(parts.get(length-1).getX(),parts.get(length-1).getY(),this.segmentSizeX,this.segmentSizeY));//needs to update without doing the second part// split into two functions
+            this.parts.add(new Rectangle(parts.get(length-1).getX(),parts.get(length-1).getY(),b1.segmentSizeX,b1.segmentSizeY));//needs to update without doing the second part// split into two functions
             length++;
             this.parts.get(length-1).setStroke(Color.WHITE);
             return true;
@@ -82,7 +67,7 @@ public class Snake
 
     public Boolean isDead()
     {
-        if(this.parts.get(0).getX()<0||this.parts.get(0).getX()>=sceneWidth||this.parts.get(0).getY()<0||this.parts.get(0).getY()>=sceneHeight)
+        if(this.parts.get(0).getX()<0||this.parts.get(0).getX()>=b1.sceneWidth||this.parts.get(0).getY()<0||this.parts.get(0).getY()>=b1.sceneHeight)
             return true;//if head outside of map it dies
         else
         {
