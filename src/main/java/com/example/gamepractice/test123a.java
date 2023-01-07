@@ -49,15 +49,12 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         text.setX(SceneWidth/2.0);
         text.setY(SceneHeight/2.0);
 
-        b1 = new Board(BoardWidth,BoardHeight,SceneWidth,SceneHeight);
+        b1 = new Board(BoardWidth,BoardHeight,SceneWidth,SceneHeight,root);
 
         s1 = new Snake(b1);
-        f1 = new Food(b1,b1.segmentSizeX,b1.segmentSizeY);
+        f1 = new Food(b1);
 
-        f1.createFood(s1);
-
-        root.getChildren().add(s1.parts.get(0));
-        root.getChildren().add(f1);
+        f1.createFood();
 
         //
         EventHandler<KeyEvent> keyhandler = new EventHandler<KeyEvent>(){
@@ -101,17 +98,14 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
             s1.isDead = s1.isDead();
             endGame(s1.isDead);
         }
-        else
-        {
-            root.getChildren().add(s1.parts.get(s1.length-1));
-        }
     }
 
     public void endGame(boolean isdead)
     {
+        b1.arrSetter(s1,f1);
+        b1.colorSet();
         if(isdead)
         {
-
             animation.stop();
             root.getChildren().add(text);
         }
@@ -127,10 +121,10 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         root.getChildren().remove(text);
         s1.length = 1;
         s1.isDead = false;
-        s1.parts.get(0).setX(6*b1.segmentSizeX);
-        s1.parts.get(0).setY(8*b1.segmentSizeY);
+        s1.parts.get(0).setX(6);
+        s1.parts.get(0).setY(8);
         s1.heading=1;
-        f1.createFood(s1);
+        f1.createFood();
         animation.play();
     }
 }
