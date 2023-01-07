@@ -1,8 +1,5 @@
 package com.example.gamepractice;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
 import java.util.ArrayList;
 
 public class Snake

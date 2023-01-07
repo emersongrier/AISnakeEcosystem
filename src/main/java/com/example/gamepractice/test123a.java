@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,25 +37,53 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
     Text text;
 
     Board b1;
+    SimpleRay rayMan;
+
+    /*
+    NOTES:
+
+    Create a Simulation class, that deals with both endgame, reset game,
+    as well as multiple snakes, foods, the board, generations, etc
+
+    can make
+
+    Need to look at end game method, and alter or remove it
+    Need to alter Snake checkAte()
+    Need to alter Snake isDead()
+
+    Eventually alter board methods
+
+     */
 
 
     @Override
     public void start(Stage primaryStage)
     {
+
         root = new Group();
         Scene scene = new Scene(root, SceneWidth, SceneHeight);
         scene.setFill(Color.FORESTGREEN);//Color.FORESTGREEN
 
-        text = new Text("Press Enter To replay");
-        text.setX(SceneWidth/2.0);
-        text.setY(SceneHeight/2.0);
+        text = new Text("Press Enter To replay");//slated to be removed
+        text.setX(SceneWidth/2.0);//slated to be removed
+        text.setY(SceneHeight/2.0);//slated to be removed
 
+        /*
+        Game setup- move to sim class or main class
+         */
         b1 = new Board(BoardWidth,BoardHeight,SceneWidth,SceneHeight,root);
-
         s1 = new Snake(b1);
         f1 = new Food(b1);
-
         f1.createFood();
+
+        rayMan = new SimpleRay(s1, b1);
+
+
+
+
+        /*
+
+         */
 
         //
         EventHandler<KeyEvent> keyhandler = new EventHandler<KeyEvent>(){
@@ -72,38 +101,40 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
             }
         };
         scene.setOnKeyPressed(keyhandler);
-        //---------------------------------------
 
-        animation = new Timeline(new KeyFrame(Duration.millis(70), this::handle));//add in buttons for speed up slow down;
+        animation = new Timeline(new KeyFrame(Duration.millis(100), this::handle));//
         animation.setCycleCount(Timeline.INDEFINITE);//look into lambda button expressions
         animation.play();
 
 
-
-
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-
-
+        primaryStage.setScene(scene);//setup
+        primaryStage.show();//setup
 
     }
 
     @Override
     public void handle(ActionEvent event)
     {
-        if(!s1.checkAte(f1))//only if didnt eat, then checks for self collision. Do this because if ate,, g
+
+        b1.arrSetter(s1,f1);
+        b1.colorSet();
+
+        rayMan.rayFinder();
+        for(int i =0; i<8;i++)
+            System.out.print(rayMan.Rays[i]+"  ");
+        System.out.println();
+
+        if(!s1.checkAte(f1))
         {
             s1.snakeUpdate();
             s1.isDead = s1.isDead();
             endGame(s1.isDead);
         }
+
     }
 
     public void endGame(boolean isdead)
     {
-        b1.arrSetter(s1,f1);
-        b1.colorSet();
         if(isdead)
         {
             animation.stop();
@@ -111,6 +142,10 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         }
     }
 
+    /**
+     * reset state of game
+     * must be altered to allow for more snakes, more food
+     */
     public void resetGame()
     {
         for(int i = s1.length-1;i>0;i--)
@@ -126,5 +161,6 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         s1.heading=1;
         f1.createFood();
         animation.play();
+        System.out.println();//remove
     }
 }
