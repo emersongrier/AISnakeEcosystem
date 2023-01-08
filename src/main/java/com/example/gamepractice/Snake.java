@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Snake
 {
     int heading = 1;//snake
-    int length = 1;//snake
+    int length = 1;//1, snake
 
     ArrayList<Point> parts;//snake specific
 

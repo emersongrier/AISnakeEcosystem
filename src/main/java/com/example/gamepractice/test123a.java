@@ -119,7 +119,8 @@ public class test123a extends Application implements EventHandler<ActionEvent> {
         b1.arrSetter(s1,f1);
         b1.colorSet();
 
-        rayMan.rayFinder();
+        rayMan.rayFinder(true);
+
         for(int i =0; i<8;i++)
             System.out.print(rayMan.Rays[i]+"  ");
         System.out.println();
