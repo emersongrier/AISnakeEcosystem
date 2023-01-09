@@ -33,7 +33,7 @@ public class Board
         this.segmentSizeX = sceneWidth/boardWidth;
         this.segmentSizeY = sceneHeight/boardHeight;
 
-        arrBoard = new int[this.boardHeight][this.boardWidth];
+        arrBoard = new int [this.boardHeight][this.boardWidth];
         tileBoard = new Rectangle[this.boardHeight][this.boardWidth];
 
         for(int i = 0; i< tileBoard.length;i++)//this creates all the tiles for use in graphics, as well as makes the border = to 3s
@@ -55,7 +55,7 @@ public class Board
      * should recieve a sim class that contains snakes, foods, and possibly rocks
      * WARNING - make sure to change this so it makes the rectangles more efficient
      */
-    public void arrSetter(Snake s1, Food f1)//change
+    public void arrSetter(Snake[] snakes, Food[] foods)//used
     {
         for(int i = 0; i<arrBoard.length;i++)
         {
@@ -68,10 +68,16 @@ public class Board
             }
         }
 
-        arrBoard[f1.ypos][f1.xpos] = 2;
-        for(int i = 0; i<s1.parts.size();i++)
+        for(int i = 0; i<foods.length;i++)
         {
-            arrBoard[s1.parts.get(i).getY()][s1.parts.get(i).getX()] = 1;
+            arrBoard[foods[i].ypos][foods[i].xpos] = 2;
+        }
+        for(int j = 0; j<snakes.length;j++)
+        {
+            for (int i = 0; i < snakes[j].parts.size(); i++)
+            {
+                arrBoard[snakes[j].parts.get(i).getY()][snakes[j].parts.get(i).getX()] = 1;
+            }
         }
     }
 
@@ -80,7 +86,7 @@ public class Board
      *Scans array data for use in drawing
      * WARNING very slow- implement a way to change finite rec location, instead of CASCADING entire board...
      */
-    public void colorSet()
+    public void colorSet()//used
     {
         for(int i = 0; i<boardHeight;i++)
         {

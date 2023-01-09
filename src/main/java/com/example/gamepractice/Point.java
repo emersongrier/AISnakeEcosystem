@@ -5,10 +5,15 @@ public class Point
     private int xpos;
     private int ypos;
 
-    public Point(int x, int y)
+    public Point(int x, int y)//used
     {
         this.xpos = x;
         this.ypos = y;
+    }
+
+    public Point()
+    {
+
     }
 
     public void setX(int x) {this.xpos = x;}

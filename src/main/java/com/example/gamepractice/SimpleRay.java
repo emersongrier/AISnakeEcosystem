@@ -5,22 +5,24 @@ public class SimpleRay
     Snake Snake;
     Board Board;
 
-    int[] Rays;
+    int[] FrontRays;
     int[] BackRays;
 
-    public SimpleRay(Snake s1,Board b1)
+    public SimpleRay(Snake s1,Board b1)//used
     {
         this.Snake = s1;
         this.Board = b1;
-        Rays = new int[8];//change 4 to variable input 4 or 8
+        FrontRays = new int[8];//change 4 to variable input 4 or 8
         BackRays = new int[8];
     }
 
+    public void sendRays() {rayFinder(true);rayFinder(false);}//used
 
     /**
      * Finds the value of 8 rays cast from the simple Rays snake
      */
-    public void rayFinder(Boolean marker)//true if front, false if tail
+    //used
+    private void rayFinder(Boolean marker)//true if front, false if tail
     {
         for(int i = 0; i < 8 ; i++)
         {
@@ -75,7 +77,7 @@ public class SimpleRay
             }while(valArr==0);
 
             if(marker==true)
-                Rays[i] = flag;
+                FrontRays[i] = flag;
             else//is back
                 BackRays[i] = flag;
 
