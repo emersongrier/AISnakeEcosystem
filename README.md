@@ -1,4 +1,4 @@
 # snake Evolution Simulator
 
 I created this project to test my skills in design, planning, Java programming, JavaFx, and Git/Github.
-It started just as a simple snake game, but has changed into an Ai ecosystem.
+Its an ecosystem of snakes powered by Neural Networks, which evolve through natural selection.
